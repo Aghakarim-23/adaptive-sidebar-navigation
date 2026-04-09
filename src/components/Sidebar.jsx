@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import {
   FaHome,
   FaUser,
@@ -9,6 +11,11 @@ import {
   FaFolder,
   FaPlus,
 } from "react-icons/fa";
+
+import {
+  TbLayoutSidebarLeftCollapse,
+  TbLayoutSidebarRightCollapse,
+} from "react-icons/tb";
 
 import { NavLink } from "react-router-dom";
 
@@ -25,27 +32,45 @@ const Sidebar = () => {
     { name: "Logout", icon: <FaSignOutAlt />, path: "/logout" },
   ];
 
+  const [isExpanded, setIsExpanded] = useState(false);
+
   return (
-    <div className="w-24 sm:w-64 bg-gray-800 text-white flex flex-col">
+    <div
+      className={`flex flex-col bg-gray-800 text-white transition-width duration-300 ${isExpanded ? "w-64" : "w-20"}`}
+    >
       <div className="flex items-center justify-center h-16 border-b border-gray-700 p-10 ">
         <span className="text-xl sm:text-2xl font-bold">MyApp</span>
       </div>
-      <nav className="flex-1 items-center  flex flex-col ">
-        {menuItems.map((item, index) => (
-          <NavLink
-            key={index}
-            to={item.path}
-            className={({ isActive }) =>
-              `w-full flex justify-center items-center px-6 py-3 transition-colors ${
-                isActive ? "bg-gray-700" : "hover:bg-gray-700"
-              }`
-            }
+      <div className="relative">
+          <nav className="flex-1 items-center  flex flex-col ">
+            {menuItems.map((item, index) => (
+              <NavLink
+                key={index}
+                to={item.path}
+                className={({ isActive }) =>
+                  `w-full flex justify-center items-center px-6 py-3 transition-colors ${
+                    isActive ? "bg-gray-700" : "hover:bg-gray-700"
+                  }`
+                }
+              >
+                <span className="text-lg">{item.icon}</span>
+                <span className={isExpanded ? "block ml-4" : "hidden"}>
+                  {item.name}
+                </span>
+              </NavLink>
+            ))}
+          </nav>
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="absolute z-10 -right-2.5 top-45 sm:top-50 bg-gray-700 p-1 rounded-full"
           >
-            <span className="text-lg">{item.icon}</span>
-            <span className="ml-4 hidden sm:block">{item.name}</span>
-          </NavLink>
-        ))}
-      </nav>
+            {isExpanded ? (
+              <TbLayoutSidebarLeftCollapse />
+            ) : (
+              <TbLayoutSidebarRightCollapse />
+            )}
+          </button>
+      </div>
     </div>
   );
 };
