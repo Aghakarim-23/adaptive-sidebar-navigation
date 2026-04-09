@@ -10,7 +10,7 @@ import {
   FaPlus,
 } from "react-icons/fa";
 
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
   const menuItems = [
@@ -26,18 +26,24 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="w-64 bg-gray-800 text-white flex flex-col">
-      <div className="p-6 text-2xl font-bold">MyApp</div>
-      <nav className="flex-1">
+    <div className="w-24 sm:w-64 bg-gray-800 text-white flex flex-col">
+      <div className="flex items-center justify-center h-16 border-b border-gray-700 p-10 ">
+        <span className="text-xl sm:text-2xl font-bold">MyApp</span>
+      </div>
+      <nav className="flex-1 items-center  flex flex-col ">
         {menuItems.map((item, index) => (
-          <Link
+          <NavLink
             key={index}
             to={item.path}
-            className="flex items-center px-6 py-3 hover:bg-gray-700 transition-colors"
+            className={({ isActive }) =>
+              `w-full flex justify-center items-center px-6 py-3 transition-colors ${
+                isActive ? "bg-gray-700" : "hover:bg-gray-700"
+              }`
+            }
           >
             <span className="text-lg">{item.icon}</span>
-            <span className="ml-4">{item.name}</span>
-          </Link>
+            <span className="ml-4 hidden sm:block">{item.name}</span>
+          </NavLink>
         ))}
       </nav>
     </div>
