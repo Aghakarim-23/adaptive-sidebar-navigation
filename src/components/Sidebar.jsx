@@ -36,7 +36,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`flex flex-col bg-gray-800 text-white transition-width duration-300 ${isExpanded ? "w-64" : "w-20"}`}
+      className={`flex flex-col bg-gray-800 text-white transition-width duration-300 ${isExpanded ? "w-full fixed sm:static min-h-screen sm:w-64" : "w-20"}`}
     >
       <div className="flex items-center justify-center h-16 border-b border-gray-700 p-10 ">
         <span className="text-xl sm:text-2xl font-bold">MyApp</span>
