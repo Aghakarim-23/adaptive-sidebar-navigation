@@ -52,6 +52,7 @@ const Sidebar = () => {
                     isActive ? "bg-gray-700" : "hover:bg-gray-700"
                   }`
                 }
+                onClick={() => setIsExpanded(false)}
               >
                 <span className="text-lg">{item.icon}</span>
                 <span className={isExpanded ? "block ml-4" : "hidden"}>
